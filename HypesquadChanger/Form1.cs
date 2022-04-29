@@ -2,9 +2,7 @@ using System;
 using System.Text;
 using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 namespace HypesquadChanger
 {
@@ -58,6 +56,7 @@ namespace HypesquadChanger
             if (user_token == "" || user_token == " ")
             {
                 MessageBox.Show("A valid token must be provided!", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                token.Text = "";
             } else if(hype == "")
             {
                 MessageBox.Show("A hype must be chosen!", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -92,6 +91,7 @@ namespace HypesquadChanger
                     if(res == 204)
                     {
                         MessageBox.Show("Sucessfully set HypeSquad!", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        token.Text = "";
                         return;
                     } else if(res == 401)
                     {
@@ -108,16 +108,19 @@ namespace HypesquadChanger
                     } else if(res == 429)
                     {
                         MessageBox.Show("You are currently ratelimited!", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        token.Text = "";
                         return;
                     } else
                     {
                         MessageBox.Show("An error occured, please try again later.", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        token.Text = "";
                         return;
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("A valid token must be provided!", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBox.Show("An error occured while executing request.", "HypeSquad Changer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    token.Text = "";
                     return;
                 }
             }
